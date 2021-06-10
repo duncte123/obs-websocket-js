@@ -17,6 +17,7 @@ jobs:
           node-version: 12
       - run: npm install json -g
       - run: npm install
+      - run: npm run build
       - run: npm test
 
   publish-npm:
@@ -30,6 +31,7 @@ jobs:
           registry-url: https://registry.npmjs.org/
       - run: npm install json -g
       - run: npm install
+      - run: npm run build
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
@@ -48,6 +50,7 @@ jobs:
           registry-url: https://npm.pkg.github.com/
       - run: npm install json -g
       - run: npm install
+      - run: npm run build
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
