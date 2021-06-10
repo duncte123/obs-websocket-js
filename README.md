@@ -6,28 +6,28 @@ OBSWebSocket.JS allows Javascript-based connections to the Open Broadcaster plug
 
 <p align="center">
 
-  [![][badge-build-status]][link-Travis-CI]
-  [![][badge-coveralls]][link-Coveralls]
-  [![][badge-npm-version]][link-npm]
-  [![][badge-npm-downloads]][link-npm]
-  [![][badge-npm-license]][link-npm]
+[![][badge-build-status]][link-Travis-CI]
+[![][badge-coveralls]][link-Coveralls]
+[![][badge-npm-version]][link-npm]
+[![][badge-npm-downloads]][link-npm]
+[![][badge-npm-license]][link-npm]
 </p>
 
 <p align="center">
   
-  **[Download](https://raw.githubusercontent.com/duncte123/obs-websocket-js/gh-pages/dist/obs-websocket.js)** |
-  **[Samples](https://github.com/duncte123/obs-websocket-js/tree/master/samples)** |
-  **[Changelog](https://github.com/duncte123/obs-websocket-js/blob/gh-pages/CHANGELOG.md)**
+**[Download](https://raw.githubusercontent.com/duncte123/obs-websocket-js/gh-pages/dist/obs-websocket.js)** |
+**[Samples](https://github.com/duncte123/obs-websocket-js/tree/master/samples)** |
+**[Changelog](https://github.com/duncte123/obs-websocket-js/blob/gh-pages/CHANGELOG.md)**
 </p>
 
 ## Installation
 
-Please note that the version of obs-websocket-js matches the release version of obs-websocket
+Please note that the version of obs-websocket-js matches the release version of obs-websocket, different versions may be incompatible.
 
 ```sh
-npm install @duncte123/obs-websocket-js --save
+npm install @duncte123/obs-websocket-js
 
-bower install @duncte123/obs-websocket-js --save
+yarn add @duncte123/obs-websocket-js
 ```
 
 Typescript definitions are included in this package, and are automatically generated to match the latest `obs-websocket` release.
