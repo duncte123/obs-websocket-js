@@ -36,8 +36,6 @@ interface Tree {
   [k: string]: AnyType;
 }
 
-type AnyType = PrimitiveType | ObjectType | OutputType | ArrayType | SceneType | SceneItemType | SceneItemTransformType | OBSStatsType;
-
 interface PrimitiveType {
   type: 'string' | 'number' | 'boolean';
   optional: boolean;
@@ -57,7 +55,7 @@ interface OutputType {
 
 interface ArrayType {
   type: 'array';
-  items: PrimitiveType | ObjectType | OutputType | SceneType | SceneItemType | SceneItemTransformType;
+  items: PrimitiveType | ObjectType | OutputType | SceneType | SceneItemType | SceneItemTransformType | ScenesCollectionType;
   optional: boolean;
 }
 
@@ -80,6 +78,13 @@ interface OBSStatsType {
   type: 'ObsWebSocket.OBSStats';
   optional: boolean;
 }
+
+interface ScenesCollectionType {
+  type: 'ObsWebSocket.ScenesCollection';
+  optional: boolean;
+}
+
+type AnyType = PrimitiveType | ObjectType | OutputType | ArrayType | SceneType | SceneItemType | SceneItemTransformType | OBSStatsType | ScenesCollectionType;
 
 const DOTS_REGEX = /\./g;
 const outFile = path.join(__dirname, '../types/index.d.ts');
@@ -422,6 +427,20 @@ function resolveType(inType: string): AnyType {
           optional: true
         },
         optional: isOptional
+      };
+    case 'array<scenescollection>':
+      return {
+        type: 'array',
+        items: {
+          type: 'ObsWebSocket.ScenesCollection',
+          optional: true
+        },
+        optional: isOptional
+      };
+    case 'scenescollection':
+      return {
+        type: 'ObsWebSocket.ScenesCollection',
+        optional: true
       };
     case 'sceneitemtransform':
       return {

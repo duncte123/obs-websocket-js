@@ -22,6 +22,8 @@ OBSWebSocket.JS allows Javascript-based connections to the Open Broadcaster plug
 
 ## Installation
 
+Please note that the version of obs-websocket-js matches the release version of obs-websocket
+
 ```sh
 npm install obs-websocket-js --save
 
