@@ -249,7 +249,7 @@ _To add your project to this list, submit a Pull Request._
 
   [link-obswebsocket]: https://github.com/Palakis/obs-websocket "OBS WebSocket Plugin"
   [link-npm]: https://www.npmjs.com/package/@duncte123/obs-websocket-js "Npm"
-  [link-Travis-CI]: https://travis-ci.org/duncte123/obs-websocket-js "Travis CI"
+  [link-Travis-CI]: https://github.com/duncte123/obs-websocket-js "Github"
   [link-Coveralls]: https://coveralls.io/github/haganbmj/obs-websocket-js?branch=master "Coveralls"
   [link-releases]:  https://github.com/duncte123/obs-websocket-js/releases "obs-websocket-js Releases"
   [link-tags]: https://github.com/duncte123/obs-websocket-js/tags "obs-websocket-js Tags"
