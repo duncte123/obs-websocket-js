@@ -9,6 +9,6 @@
   "author": "Brendan Hagan (haganbmj)",
   "license": "ISC",
   "dependencies": {
-    "obs-websocket-js": "^4.0.0"
+    "@duncte123/obs-websocket-js": "^4.0.0"
   }
 }

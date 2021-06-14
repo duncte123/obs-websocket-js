@@ -43,13 +43,13 @@ The web distributable exposes a global named `OBSWebSocket`.
 In node...
 
 ```js
-const OBSWebSocket = require('@duncte123/obs-websocket-js');
+const { OBSWebSocket } = require('@duncte123/obs-websocket-js');
 ```
 
 If you're working in a frontend framework and want to use static imports...
 
 ```js
-import OBSWebSocket from '../../node_modules/@duncte123/obs-websocket-js/lib/OBSWebSocket.js'; //relative path may vary depending on location of node_modules directory
+import { OBSWebSocket } from '../../node_modules/@duncte123/obs-websocket-js/lib/OBSWebSocket.js'; //relative path may vary depending on location of node_modules directory
 ```
 
 Create a new WebSocket connection using the following.

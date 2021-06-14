@@ -18,6 +18,8 @@ jobs:
       - run: npm install json -g
       - run: npm install
       - run: npm run build
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: npm test
 
   publish-npm:
@@ -32,6 +34,8 @@ jobs:
       - run: npm install json -g
       - run: npm install
       - run: npm run build
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
@@ -51,6 +55,8 @@ jobs:
       - run: npm install json -g
       - run: npm install
       - run: npm run build
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
