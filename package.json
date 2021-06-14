@@ -42,10 +42,13 @@
     "ws": "^7.2.0"
   },
   "devDependencies": {
+    "@types/debug": "^4.1.5",
     "@types/got": "^9.6.9",
     "@types/lodash.deburr": "^4.1.6",
     "@types/node": "^10.17.6",
     "@types/prettier": "^1.19.0",
+    "@types/sha.js": "^2.4.0",
+    "@types/ws": "^7.4.4",
     "ava": "^3.2.0",
     "babili-webpack-plugin": "^0.1.2",
     "coveralls": "^3.0.9",
