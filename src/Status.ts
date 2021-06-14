@@ -1,3 +1,10 @@
+export type StatusType = {
+  code: string;
+  status: string;
+  description: string;
+  error?: string;
+};
+
 export default {
   NOT_CONNECTED: {
     code: 'NOT_CONNECTED',

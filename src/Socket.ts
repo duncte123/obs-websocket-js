@@ -1,7 +1,7 @@
 import WebSocket from 'isomorphic-ws';
 import {EventEmitter} from 'events';
 import Debug from 'debug';
-import Status from './Status.js';
+import Status, {StatusType} from './Status.js';
 import hash from './utils/authenticationHashing.js';
 import logAmbiguousError from './utils/logAmbiguousError.js';
 import camelCaseKeys from './utils/camelCaseKeys.js';
@@ -111,7 +111,7 @@ export default class Socket extends EventEmitter {
       // This handler must be present before we can call _authenticate.
       this.socket.onmessage = (msg: WebSocket.MessageEvent) => {
         this.debug('[OnMessage]: %o', msg);
-        const message = camelCaseKeys(JSON.parse(msg.data));
+        const message = camelCaseKeys(JSON.parse(String(msg.data)));
         let err;
         let data;
 
@@ -134,7 +134,7 @@ export default class Socket extends EventEmitter {
     });
   }
 
-  private async authenticate(password = ''): Promise<Status> {
+  private async authenticate(password = ''): Promise<StatusType|undefined> {
     if (!this.connected) {
       throw Status.NOT_CONNECTED;
     }
