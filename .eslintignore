@@ -3,6 +3,7 @@ bower_components
 .github
 .travis
 dist
+browser-dist
 coverage
 .nyc_output
 samples
