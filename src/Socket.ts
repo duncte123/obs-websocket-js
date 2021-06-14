@@ -6,7 +6,6 @@ import hash from './utils/authenticationHashing.js';
 import logAmbiguousError from './utils/logAmbiguousError.js';
 import camelCaseKeys from './utils/camelCaseKeys.js';
 import { EventHandlersDataMap, RequestMethodReturnMap, RequestMethodsArgsMap } from './typings/obsWebsocket.js';
-import { IOBSWebSocket } from './IOBSWebSocket';
 
 export type ConnectArgs = {
   address?: string;
@@ -14,7 +13,7 @@ export type ConnectArgs = {
   password?: string;
 };
 
-export abstract class Socket extends EventEmitter implements IOBSWebSocket {
+export abstract class Socket extends EventEmitter {
   protected connected = false;
   protected socket: WebSocket;
   protected debug = debug('obs-websocket-js:Socket');
@@ -62,6 +61,15 @@ export abstract class Socket extends EventEmitter implements IOBSWebSocket {
     }
   }
 
+  /**
+   * Opens a WebSocket connection to an obs-websocket server, but does not attempt any authentication.
+   *
+   * @param {String} address url without ws:// or wss:// prefix.
+   * @param {Boolean} secure whether to us ws:// or wss://
+   * @returns {Promise}
+   * @private
+   * @return {Promise} on attempted creation of WebSocket connection.
+   */
   private connect0(address: string, secure: boolean): Promise<void> {
     // we need to wrap this in a promise so we can resolve only when connected
     return new Promise<void>((resolve, reject): void => {
@@ -131,16 +139,19 @@ export abstract class Socket extends EventEmitter implements IOBSWebSocket {
     });
   }
 
+  /**
+   * Authenticates to an obs-websocket server. Must already have an active connection before calling this method.
+   *
+   * @param {String} [password=''] authentication string.
+   * @private
+   * @return {Promise} on resolution of authentication call.
+   */
   private async authenticate(password = ''): Promise<StatusType|null> {
     if (!this.connected) {
       throw Status.NOT_CONNECTED;
     }
 
-    console.log('pre auth-required');
-
     const auth = await this.send('GetAuthRequired');
-
-    console.log(auth);
 
     if (!auth.authRequired) {
       this.debug('Authentication not Required');
@@ -164,6 +175,13 @@ export abstract class Socket extends EventEmitter implements IOBSWebSocket {
     return null;
   }
 
+  /**
+   * Close and disconnect the WebSocket connection.
+   *
+   * @function
+   * @category request
+   * @return {Promise}
+   */
   async disconnect(): Promise<void> {
     this.debug('Disconnect requested.');
 

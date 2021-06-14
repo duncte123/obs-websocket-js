@@ -9,6 +9,15 @@ export class OBSWebSocket extends Socket {
     return String(OBSWebSocket.requestCounter++);
   }
 
+  /**
+   * Generic Socket request method. Returns a promise.
+   * Generates a messageId internally and will override any passed in the args.
+   * Note that the requestType here is pre-marshaling and currently must match exactly what the websocket plugin is expecting.
+   *
+   * @param  {String}   requestType obs-websocket plugin expected request type.
+   * @param  {Object}   [args={}]   request arguments.
+   * @return {Promise}              Promise, passes the plugin response object.
+   */
   send<K extends keyof RequestMethodsArgsMap>(
     requestType: K,
     args?: RequestMethodsArgsMap[K] extends object ? RequestMethodsArgsMap[K] : undefined
@@ -69,11 +78,13 @@ export class OBSWebSocket extends Socket {
   }
 
   /**
+   * Generic Socket request method. Handles callbacks.
+   * Internally calls `send` (which is promise-based). See `send`'s docs for more details.
    *
-   * @param requestType
-   * @param args
-   * @param callback
-   * @deprecated for removal, hell to maintian
+   * @param  {String}   requestType obs-websocket plugin expected request type.
+   * @param  {Object}   [args={}]   request arguments.
+   * @param  {Function} callback    Optional. callback(err, data)
+   * @deprecated This method is not fun to maintain in typescript, use the promise api instead
    */
   // this is hell to maintain in typescript and will be removed
   sendCallback<K extends keyof RequestMethodsArgsMap>(
