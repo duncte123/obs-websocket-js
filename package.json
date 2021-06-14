@@ -22,10 +22,10 @@
   ],
   "scripts": {
     "build": "npm-run-all build:*",
-    "build:ts": "tsc",
-    "build:web": "rimraf dist && webpack",
-    "prebuild:types": "tslint -c tslint.json -p tsconfig.json",
+    "prebuild:types": "eslint .",
     "build:types": "cross-env-shell TS_NODE_PROJECT=tsconfig.json \"node $NODE_DEBUG_OPTION -r ts-node/register scripts/build-types2.ts\"",
+    "build:ts": "tsc",
+    "build:web": "rimraf browser-dist && webpack",
     "watch": "webpack --watch",
     "test": "npm-run-all test:*",
     "test:static": "eslint .",

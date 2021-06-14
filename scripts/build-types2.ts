@@ -97,6 +97,8 @@ async function getLatestComments(): Promise<any> {
   if (!process.env.GH_TOKEN) {
     // @ts-ignore
     delete headers.Authorization;
+  } else {
+    console.log('We have a github token!');
   }
 
   const latestReleaseResponse = await (fetch(
@@ -106,15 +108,13 @@ async function getLatestComments(): Promise<any> {
     }
   ).then(r => r.json()));
 
-  const latestReleaseTag = latestReleaseResponse.body.tag_name;
-  const commentsResponse = await (fetch(
+  const latestReleaseTag = latestReleaseResponse.tag_name;
+  return await (fetch(
     `https://raw.githubusercontent.com/Palakis/obs-websocket/${latestReleaseTag}/docs/generated/comments.json`,
     {
       headers
     }
   ).then(r => r.json()));
-
-  return commentsResponse.body;
 }
 
 getLatestComments().then(rawComments => {
@@ -183,7 +183,7 @@ function parseApi(raw: RawComments): void {
 /// DO NOT EDIT
 
 export type Callback<K extends keyof RequestMethodReturnMap> = (
-  error?: Error | ObsError,
+  error?: Error | ObsError | null,
   response?: RequestMethodReturnMap[K]
 ) => void;
 

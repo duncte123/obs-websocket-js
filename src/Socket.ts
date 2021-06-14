@@ -5,7 +5,8 @@ import Status, { StatusType } from './Status.js';
 import hash from './utils/authenticationHashing.js';
 import logAmbiguousError from './utils/logAmbiguousError.js';
 import camelCaseKeys from './utils/camelCaseKeys.js';
-import { EventHandlersDataMap } from './typings/obsWebsocket.js';
+import { EventHandlersDataMap, RequestMethodReturnMap, RequestMethodsArgsMap } from './typings/obsWebsocket.js';
+import { IOBSWebSocket } from './IOBSWebSocket';
 
 export type ConnectArgs = {
   address?: string;
@@ -13,7 +14,7 @@ export type ConnectArgs = {
   password?: string;
 };
 
-export default class Socket extends EventEmitter {
+export default abstract class Socket extends EventEmitter implements IOBSWebSocket {
   protected connected = false;
   protected socket: WebSocket;
   protected debug = debug('obs-websocket-js:Socket');
@@ -152,7 +153,7 @@ export default class Socket extends EventEmitter {
 
     try {
       await this.send('Authenticate', {
-        auth: hash(auth.salt, auth.challenge, password)
+        auth: hash(auth.salt || '', auth.challenge || '', password)
       });
     } catch (e) {
       this.debug('Authentication Failure %o', e);
@@ -172,5 +173,11 @@ export default class Socket extends EventEmitter {
     if (this.socket) {
       await this.socket.close();
     }
+  }
+
+  // Dummy method
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  send<K extends keyof RequestMethodsArgsMap>(requestType: K, args?: RequestMethodsArgsMap[K] extends object ? RequestMethodsArgsMap[K] : undefined): Promise<RequestMethodReturnMap[K]> {
+    throw new Error('Abstract');
   }
 }

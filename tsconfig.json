@@ -5,7 +5,7 @@
       "es2017"
     ],
     "esModuleInterop": true,
-    "noImplicitAny": true,
+    "noImplicitAny": false,
     "declaration": true,
     "noImplicitThis": true,
     "strictNullChecks": true,
@@ -15,11 +15,12 @@
     "typeRoots": [
       "node_modules/@types"
     ],
-    "noEmit": true,
+    "noEmit": false,
     "forceConsistentCasingInFileNames": true
   },
   "exclude": [
     "scripts",
-    "test"
+    "test",
+    "dist"
   ]
 }

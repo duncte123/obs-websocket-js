@@ -1,8 +1,9 @@
 import Socket from './Socket.js';
 import Status, { StatusType } from './Status.js';
 import { Callback, RequestMethodReturnMap, RequestMethodsArgsMap } from './typings/obsWebsocket';
+import { IOBSWebSocket } from './IOBSWebSocket';
 
-export default class OBSWebSocket extends Socket {
+export default class OBSWebSocket extends Socket implements IOBSWebSocket {
   private static requestCounter = 0;
 
   private static generateMessageId(): string {
