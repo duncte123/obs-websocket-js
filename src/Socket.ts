@@ -9,8 +9,8 @@ import {EventHandlersDataMap} from './typings/obsWebsocket';
 
 export type ConnectArgs = {
   address?: string;
-  secure?: boolean
-  password?: string
+  secure?: boolean;
+  password?: string;
 };
 
 export default class Socket extends EventEmitter {
@@ -85,7 +85,7 @@ export default class Socket extends EventEmitter {
 
         settled = true;
         logAmbiguousError(this.debug, 'Websocket Connection failed:', err);
-        reject( Status.CONNECTION_ERROR);
+        reject(Status.CONNECTION_ERROR);
       };
 
       this.socket.onopen = () => {
@@ -134,7 +134,7 @@ export default class Socket extends EventEmitter {
     });
   }
 
-  private async authenticate(password = '') {
+  private async authenticate(password = ''): Promise<Status> {
     if (!this.connected) {
       throw Status.NOT_CONNECTED;
     }

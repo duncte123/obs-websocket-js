@@ -81,14 +81,9 @@ export type Output = {
   totalBytes: number;
 };
 
-export type ScenesCollection = {
-  'sc-name': string;
-};
+export type ScenesCollection = { 'sc-name': string };
 
-export type Scene = {
-  name: string;
-  sources: SceneItem[];
-};
+export type Scene = { name: string; sources: SceneItem[] };
 
 export type RequestMethodsArgsMap = {
   GetVersion: void;
@@ -427,11 +422,7 @@ export type RequestMethodsArgsMap = {
 
   DeleteSceneItem: { scene?: string; item: { name: string; id: number } };
 
-  AddSceneItem: {
-    sceneName: string;
-    sourceName: string;
-    setVisible?: boolean;
-  };
+  AddSceneItem: { sceneName: string; sourceName: string; setVisible?: boolean };
 
   DuplicateSceneItem: {
     fromScene?: string;
@@ -623,11 +614,7 @@ export type RequestMethodReturnMap = {
 
   PreviousMedia: void;
 
-  GetMediaDuration: {
-    messageId: string;
-    status: 'ok';
-    mediaDuration: number;
-  };
+  GetMediaDuration: { messageId: string; status: 'ok'; mediaDuration: number };
 
   GetMediaTime: { messageId: string; status: 'ok'; timestamp: number };
 
@@ -838,11 +825,7 @@ export type RequestMethodReturnMap = {
 
   SetSourceFilterVisibility: void;
 
-  GetAudioMonitorType: {
-    messageId: string;
-    status: 'ok';
-    monitorType: string;
-  };
+  GetAudioMonitorType: { messageId: string; status: 'ok'; monitorType: string };
 
   SetAudioMonitorType: void;
 
@@ -863,17 +846,9 @@ export type RequestMethodReturnMap = {
 
   RefreshBrowserSource: void;
 
-  ListOutputs: {
-    messageId: string;
-    status: 'ok';
-    outputs: Output[];
-  };
+  ListOutputs: { messageId: string; status: 'ok'; outputs: Output[] };
 
-  GetOutputInfo: {
-    messageId: string;
-    status: 'ok';
-    outputInfo: Output;
-  };
+  GetOutputInfo: { messageId: string; status: 'ok'; outputInfo: Output };
 
   StartOutput: void;
 
@@ -914,11 +889,7 @@ export type RequestMethodReturnMap = {
 
   SetRecordingFolder: void;
 
-  GetRecordingFolder: {
-    messageId: string;
-    status: 'ok';
-    'rec-folder': string;
-  };
+  GetRecordingFolder: { messageId: string; status: 'ok'; 'rec-folder': string };
 
   GetReplayBufferStatus: {
     messageId: string;
@@ -1120,11 +1091,7 @@ export type RequestMethodReturnMap = {
     'transition-duration': number;
   };
 
-  GetTransitionPosition: {
-    messageId: string;
-    status: 'ok';
-    position: number;
-  };
+  GetTransitionPosition: { messageId: string; status: 'ok'; position: number };
 
   GetTransitionSettings: {
     messageId: string;
@@ -1295,11 +1262,7 @@ export type EventHandlersDataMap = {
     sourceKind: string;
   };
 
-  SourceVolumeChanged: {
-    sourceName: string;
-    volume: number;
-    volumeDb: number;
-  };
+  SourceVolumeChanged: { sourceName: string; volume: number; volumeDb: number };
 
   SourceMuteStateChanged: { sourceName: string; muted: boolean };
 
@@ -1315,11 +1278,7 @@ export type EventHandlersDataMap = {
     hexMixersValue: string;
   };
 
-  SourceRenamed: {
-    previousName: string;
-    newName: string;
-    sourceType: string;
-  };
+  SourceRenamed: { previousName: string; newName: string; sourceType: string };
 
   SourceFilterAdded: {
     sourceName: string;
@@ -1411,10 +1370,7 @@ export type EventHandlersDataMap = {
     'item-id': number;
   };
 
-  PreviewSceneChanged: {
-    'scene-name': string;
-    sources: SceneItem[];
-  };
+  PreviewSceneChanged: { 'scene-name': string; sources: SceneItem[] };
 
   StudioModeSwitched: { 'new-state': boolean };
 };
