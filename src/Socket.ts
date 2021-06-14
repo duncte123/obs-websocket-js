@@ -5,6 +5,7 @@ import Status from './Status.js';
 import hash from './utils/authenticationHashing.js';
 import logAmbiguousError from './utils/logAmbiguousError.js';
 import camelCaseKeys from './utils/camelCaseKeys.js';
+import {EventHandlersDataMap} from './typings/obsWebsocket';
 
 export type ConnectArgs = {
   address?: string;
@@ -26,6 +27,10 @@ export default class Socket extends EventEmitter {
       this.debug('[emit] %s err: %o data: %o', ...args);
       return originalEmit.apply(this, args);
     };
+  }
+
+  on<K extends keyof EventHandlersDataMap>(event: K, listener: (data: EventHandlersDataMap[K]) => void): this {
+    return super.on(event, listener);
   }
 
   async connect(args: ConnectArgs = {}): Promise<void> {

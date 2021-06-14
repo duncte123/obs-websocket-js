@@ -1,5 +1,6 @@
 import Socket from './Socket.js';
 import Status from './Status.js';
+import {Callback, RequestMethodReturnMap, RequestMethodsArgsMap} from './typings/obsWebsocket';
 
 export default class OBSWebSocket extends Socket {
   private static requestCounter = 0;
@@ -9,7 +10,10 @@ export default class OBSWebSocket extends Socket {
   }
 
   // TODO: generate types
-  send(requestType: any, args: { [key: string]: any } = {}) {
+  async send<K extends keyof RequestMethodsArgsMap>(
+    requestType: K,
+    args: RequestMethodsArgsMap[K] extends object ? [RequestMethodsArgsMap[K]] : [undefined?]
+  ): Promise<RequestMethodReturnMap[K]> {
     args = args || {};
 
     return new Promise((resolve, reject) => {
@@ -37,7 +41,9 @@ export default class OBSWebSocket extends Socket {
 
       // If we don't have a reason to fail fast, send the request to the socket.
       if (!rejectReason) {
+        // @ts-ignore
         args['request-type'] = requestType;
+        // @ts-ignore
         args['message-id'] = messageId;
 
         // Submit the request to the websocket.
@@ -62,19 +68,26 @@ export default class OBSWebSocket extends Socket {
    * @param requestType
    * @param args
    * @param callback
-   * @deprecated for removal
+   * @deprecated for removal, hell to maintian
    */
-  sendCallback(requestType: any, args = {}, callback: (...arg0: any) => void) { // eslint-disable-line default-param-last
+  // this is hell to maintain in typescript and will be removed
+  sendCallback<K extends keyof RequestMethodsArgsMap>(
+    requestType: K,
+    args: RequestMethodsArgsMap[K] | Callback<K>,
+    callback: Callback<K>
+  ) { // eslint-disable-line default-param-last
     // Allow the `args` argument to be omitted.
     if (callback === undefined && typeof args === 'function') {
       callback = args;
+      // @ts-ignore
       args = {};
     }
 
     // Perform the actual request, using `send`.
+    // @ts-ignore
     this.send(requestType, args).then((...response) => {
-      callback(null, ...response);
-    }).catch(error => {
+      callback(undefined, ...response);
+    }).catch((error: Error) => {
       callback(error);
     });
   }
