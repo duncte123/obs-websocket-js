@@ -35,4 +35,10 @@ export default {
     description: 'A Request Type was not specified.',
     error: 'A Request Type was not specified.',
   },
+  ARGS_NOT_OBJECT: {
+    code: 'ARGS_NOT_OBJECT',
+    status: 'error',
+    description: 'The supplied arguments parameter is not an object.',
+    error: 'The supplied arguments parameter is not an object.',
+  },
 };

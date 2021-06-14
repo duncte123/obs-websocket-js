@@ -9,7 +9,6 @@ export default class OBSWebSocket extends Socket {
     return String(OBSWebSocket.requestCounter++);
   }
 
-  // TODO: generate types
   send<K extends keyof RequestMethodsArgsMap>(
     requestType: K,
     args?: RequestMethodsArgsMap[K] extends object ? RequestMethodsArgsMap[K] : undefined
@@ -24,6 +23,10 @@ export default class OBSWebSocket extends Socket {
 
       if (!requestType) {
         rejectReason = Status.REQUEST_TYPE_NOT_SPECIFIED;
+      }
+
+      if (args && (typeof args !== 'object' || Array.isArray(args))) {
+        rejectReason = Status.ARGS_NOT_OBJECT;
       }
 
       if (!this.connected) {

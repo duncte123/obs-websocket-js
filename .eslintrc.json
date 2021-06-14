@@ -13,6 +13,7 @@
         "ecmaVersion": 12,
         "sourceType": "module"
     },
+    "ignorePatterns": ["obsWebsocket.ts"],
     "rules": {
         "@typescript-eslint/explicit-module-boundary-types": "error",
         "@typescript-eslint/explicit-function-return-type": "error",
