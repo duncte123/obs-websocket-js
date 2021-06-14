@@ -1,8 +1,8 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import * as prettier from 'prettier';
-import * as got from 'got';
-import deburr = require('lodash.deburr');
+import fetch from 'node-fetch';
+import deburr from 'lodash.deburr';
 
 interface RawType {
   type: string;
@@ -95,18 +95,25 @@ async function getLatestComments(): Promise<any> {
   };
 
   if (!process.env.GH_TOKEN) {
+    // @ts-ignore
     delete headers.Authorization;
   }
 
-  const latestReleaseResponse = await got('https://api.github.com/repos/Palakis/obs-websocket/releases/latest', {
-    json: true,
-    headers
-  });
+  const latestReleaseResponse = await (fetch(
+    'https://api.github.com/repos/Palakis/obs-websocket/releases/latest',
+    {
+      headers
+    }
+  ).then(r => r.json()));
+
   const latestReleaseTag = latestReleaseResponse.body.tag_name;
-  const commentsResponse = await got(`https://raw.githubusercontent.com/Palakis/obs-websocket/${latestReleaseTag}/docs/generated/comments.json`, {
-    json: true,
-    headers
-  });
+  const commentsResponse = await (fetch(
+    `https://raw.githubusercontent.com/Palakis/obs-websocket/${latestReleaseTag}/docs/generated/comments.json`,
+    {
+      headers
+    }
+  ).then(r => r.json()));
+
   return commentsResponse.body;
 }
 

@@ -1,21 +1,32 @@
-import * as ObsWebsocketJs from '@duncte123/obs-websocket-js';
+import ObsWebsocketJs from '../src/OBSWebSocket';
 
 const obs = new ObsWebsocketJs();
-obs.connect().then().catch();
-obs.connect({address: '127.0.0.1:4445', password: 'fooBarBaz'});
+obs.connect()
+  .then()
+  .catch();
+obs.connect({
+  address: '127.0.0.1:4445',
+  password: 'fooBarBaz'
+});
 
 obs.send('GetVersion').then();
 
-obs.send('Authenticate', {auth: 'foo'});
-obs.send('Authenticate', {auth: 'foo'}).then();
-obs.sendCallback('Authenticate', {auth: 'foo'}, (error) => {
+obs.send('Authenticate', {
+  auth: 'foo'
+});
+obs.send('Authenticate', {
+  auth: 'foo'
+}).then();
+obs.sendCallback('Authenticate', {
+  auth: 'foo'
+}, (error) => {
   if (error) {
     throw error;
   }
 });
 
 // Promise response.
-obs.send('GetVersion').then(data => {
+obs.send('GetVersion').then((data) => {
   console.log(data.messageId);
   console.log(data.status);
   console.log(data.version);
@@ -49,8 +60,8 @@ obs.on('SwitchScenes', () => {});
 obs.on('TransitionBegin', (data) => {
   console.log(data.name);
   console.log(data.duration);
-  console.log(data["from-scene"]);
-  console.log(data["to-scene"]);
+  console.log(data['from-scene']);
+  console.log(data['to-scene']);
 });
 
 // Missing required args.
@@ -59,7 +70,9 @@ obs.send('Authenticate', {});
 
 // Missing callback.
 // $ExpectError
-obs.sendCallback('Authenticate', {auth: 'foo'});
+obs.sendCallback('Authenticate', {
+  auth: 'foo'
+});
 
 // Not checking for error in callback.
 obs.sendCallback('GetVersion', (error, data) => {

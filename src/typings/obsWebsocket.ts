@@ -2,7 +2,7 @@
 /// DO NOT EDIT
 
 export type Callback<K extends keyof RequestMethodReturnMap> = (
-  error?: Error | ObsError,
+  error?: Error | ObsError | null,
   response?: RequestMethodReturnMap[K]
 ) => void;
 

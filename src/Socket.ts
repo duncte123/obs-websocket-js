@@ -1,11 +1,11 @@
 import WebSocket from 'isomorphic-ws';
-import {EventEmitter} from 'events';
-import Debug from 'debug';
-import Status, {StatusType} from './Status.js';
+import { EventEmitter } from 'events';
+import debug from 'debug';
+import Status, { StatusType } from './Status.js';
 import hash from './utils/authenticationHashing.js';
 import logAmbiguousError from './utils/logAmbiguousError.js';
 import camelCaseKeys from './utils/camelCaseKeys.js';
-import {EventHandlersDataMap} from './typings/obsWebsocket';
+import { EventHandlersDataMap } from './typings/obsWebsocket.js';
 
 export type ConnectArgs = {
   address?: string;
@@ -16,14 +16,14 @@ export type ConnectArgs = {
 export default class Socket extends EventEmitter {
   protected connected = false;
   protected socket: WebSocket;
-  protected debug = Debug('obs-websocket-js:Socket');
+  protected debug = debug('obs-websocket-js:Socket');
 
   constructor() {
     super();
 
     const originalEmit = this.emit;
     // TODO: test this
-    this.emit = function (event: string | symbol, ...args) {
+    this.emit = function (event: string | symbol, ...args): boolean {
       this.debug('[emit] %s err: %o data: %o', ...args);
       return originalEmit.apply(this, args);
     };
@@ -34,6 +34,7 @@ export default class Socket extends EventEmitter {
   }
 
   async connect(args: ConnectArgs = {}): Promise<void> {
+    // eslint-disable-next-line no-param-reassign
     args = {
       address: 'localhost:4444',
       password: '',
@@ -54,7 +55,8 @@ export default class Socket extends EventEmitter {
     }
 
     try {
-      await this.connect0(args.address!!, args.secure!!);
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      await this.connect0(args.address!, args.secure!);
       await this.authenticate(args.password);
     } catch (e) {
       this.socket.close();
@@ -67,7 +69,7 @@ export default class Socket extends EventEmitter {
 
   private connect0(address: string, secure: boolean): Promise<void> {
     // we need to wrap this in a promise so we can resolve only when connected
-    return new Promise<void>((resolve, reject) => {
+    return new Promise<void>((resolve, reject): void => {
       let settled = false;
 
       this.debug('Attempting to connect to: %s (secure: %s)', address, secure);
@@ -76,7 +78,7 @@ export default class Socket extends EventEmitter {
       // We only handle the initial connection error.
       // Beyond that, the consumer is responsible for adding their own generic `error` event listener.
       // FIXME: Unsure how best to expose additional information about the WebSocket error.
-      this.socket.onerror = (err: WebSocket.ErrorEvent) => {
+      this.socket.onerror = (err: WebSocket.ErrorEvent): void => {
         if (settled) {
           logAmbiguousError(this.debug, 'Unknown Socket Error', err);
           this.emit('error', err);
@@ -88,7 +90,7 @@ export default class Socket extends EventEmitter {
         reject(Status.CONNECTION_ERROR);
       };
 
-      this.socket.onopen = () => {
+      this.socket.onopen = (): void => {
         if (settled) {
           return;
         }
@@ -102,18 +104,18 @@ export default class Socket extends EventEmitter {
       };
 
       // Looks like this should be bound. We don't technically cancel the connection when the authentication fails.
-      this.socket.onclose = () => {
+      this.socket.onclose = (): void => {
         this.connected = false;
         this.debug('Connection closed: %s', address);
         this.emit('ConnectionClosed');
       };
 
       // This handler must be present before we can call _authenticate.
-      this.socket.onmessage = (msg: WebSocket.MessageEvent) => {
+      this.socket.onmessage = (msg: WebSocket.MessageEvent): void => {
         this.debug('[OnMessage]: %o', msg);
         const message = camelCaseKeys(JSON.parse(String(msg.data)));
-        let err;
-        let data;
+        let err = {};
+        let data = {};
 
         if (message.status === 'error') {
           err = message;
@@ -130,11 +132,11 @@ export default class Socket extends EventEmitter {
           logAmbiguousError(this.debug, 'Unrecognized Socket Message:', message);
           this.emit('message', message);
         }
-      }
+      };
     });
   }
 
-  private async authenticate(password = ''): Promise<StatusType|undefined> {
+  private async authenticate(password = ''): Promise<StatusType|null> {
     if (!this.connected) {
       throw Status.NOT_CONNECTED;
     }
@@ -160,13 +162,15 @@ export default class Socket extends EventEmitter {
 
     this.debug('Authentication Success');
     this.emit('AuthenticationSuccess');
+
+    return null;
   }
 
-  async disconnect() {
+  async disconnect(): Promise<void> {
     this.debug('Disconnect requested.');
 
     if (this.socket) {
-      this.socket.close();
+      await this.socket.close();
     }
   }
 }

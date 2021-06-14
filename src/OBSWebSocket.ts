@@ -1,6 +1,6 @@
 import Socket from './Socket.js';
-import Status from './Status.js';
-import {Callback, RequestMethodReturnMap, RequestMethodsArgsMap} from './typings/obsWebsocket';
+import Status, { StatusType } from './Status.js';
+import { Callback, RequestMethodReturnMap, RequestMethodsArgsMap } from './typings/obsWebsocket';
 
 export default class OBSWebSocket extends Socket {
   private static requestCounter = 0;
@@ -10,15 +10,17 @@ export default class OBSWebSocket extends Socket {
   }
 
   // TODO: generate types
-  async send<K extends keyof RequestMethodsArgsMap>(
+  send<K extends keyof RequestMethodsArgsMap>(
     requestType: K,
-    args: RequestMethodsArgsMap[K] extends object ? [RequestMethodsArgsMap[K]] : [undefined?]
+    args?: RequestMethodsArgsMap[K] extends object ? RequestMethodsArgsMap[K] : undefined
   ): Promise<RequestMethodReturnMap[K]> {
+    // @ts-ignore this assignment works in js
+    // eslint-disable-next-line no-param-reassign
     args = args || {};
 
     return new Promise((resolve, reject) => {
       const messageId = OBSWebSocket.generateMessageId();
-      let rejectReason;
+      let rejectReason: StatusType|null = null;
 
       if (!requestType) {
         rejectReason = Status.REQUEST_TYPE_NOT_SPECIFIED;
@@ -41,9 +43,9 @@ export default class OBSWebSocket extends Socket {
 
       // If we don't have a reason to fail fast, send the request to the socket.
       if (!rejectReason) {
-        // @ts-ignore
+        // @ts-ignore not documented but required
         args['request-type'] = requestType;
-        // @ts-ignore
+        // @ts-ignore not documented but required
         args['message-id'] = messageId;
 
         // Submit the request to the websocket.
@@ -73,22 +75,27 @@ export default class OBSWebSocket extends Socket {
   // this is hell to maintain in typescript and will be removed
   sendCallback<K extends keyof RequestMethodsArgsMap>(
     requestType: K,
-    args: RequestMethodsArgsMap[K] | Callback<K>,
-    callback: Callback<K>
-  ) { // eslint-disable-line default-param-last
+    args?: RequestMethodsArgsMap[K] extends object ? RequestMethodsArgsMap[K] : Callback<K>,
+    callback?: Callback<K> | undefined
+  ): void { // eslint-disable-line default-param-last
     // Allow the `args` argument to be omitted.
-    if (callback === undefined && typeof args === 'function') {
+    if (typeof callback === 'undefined' && typeof args === 'function') {
+      // eslint-disable-next-line no-param-reassign
       callback = args;
-      // @ts-ignore
+      // @ts-ignore this is valid
+      // eslint-disable-next-line no-param-reassign
       args = {};
     }
 
     // Perform the actual request, using `send`.
-    // @ts-ignore
+    // @ts-ignore args is stupid
     this.send(requestType, args).then((...response) => {
-      callback(undefined, ...response);
-    }).catch((error: Error) => {
-      callback(error);
-    });
+      // @ts-ignore is not undefined
+      callback(null, ...response);
+    })
+      .catch((error: Error) => {
+        // @ts-ignore is not undefined
+        callback(error);
+      });
   }
 }

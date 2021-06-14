@@ -13,18 +13,19 @@
     "node",
     "node.js"
   ],
-  "main": "lib/index.js",
+  "main": "dist/index.js",
+  "browser": "browser-dist/index.js",
+  "types": "dist/index.d.ts",
   "files": [
     "dist",
-    "lib",
-    "types/index.d.ts"
+    "browser-dist"
   ],
-  "types": "types/index.d.ts",
   "scripts": {
     "build": "npm-run-all build:*",
+    "build:ts": "tsc",
     "build:web": "rimraf dist && webpack",
     "prebuild:types": "tslint -c tslint.json -p tsconfig.json",
-    "build:types": "cross-env-shell TS_NODE_PROJECT=.travis/tsconfig.json \"node $NODE_DEBUG_OPTION -r ts-node/register scripts/build-types2.ts\"",
+    "build:types": "cross-env-shell TS_NODE_PROJECT=tsconfig.json \"node $NODE_DEBUG_OPTION -r ts-node/register scripts/build-types2.ts\"",
     "watch": "webpack --watch",
     "test": "npm-run-all test:*",
     "test:static": "eslint .",
@@ -46,26 +47,26 @@
     "@types/got": "^9.6.9",
     "@types/lodash.deburr": "^4.1.6",
     "@types/node": "^10.17.6",
+    "@types/node-fetch": "^2.5.10",
     "@types/prettier": "^1.19.0",
     "@types/sha.js": "^2.4.0",
     "@types/ws": "^7.4.4",
+    "@typescript-eslint/eslint-plugin": "^4.26.1",
+    "@typescript-eslint/parser": "^4.26.1",
     "ava": "^3.2.0",
     "babili-webpack-plugin": "^0.1.2",
     "coveralls": "^3.0.9",
     "cross-env": "^6.0.3",
-    "dtslint": "^2.0.2",
-    "eslint": "^6.7.2",
-    "eslint-config-xo-space": "^0.22.0",
-    "eslint-plugin-ava": "^10.0.1",
-    "got": "^9.6.0",
+    "eslint": "^7.28.0",
+    "eslint-plugin-ava": "^12.0.0",
     "lodash.deburr": "^4.1.0",
+    "node-fetch": "^2.6.1",
     "npm-run-all": "^4.1.5",
     "nyc": "^14.1.1",
     "prettier": "^1.19.1",
     "rimraf": "^3.0.0",
     "ts-node": "^8.5.4",
-    "tslint-xo": "0.16.0",
-    "typescript": "3.7.3",
+    "typescript": "^4.2.4",
     "uglifyjs-webpack-plugin": "^2.2.0",
     "webpack": "^4.41.2",
     "webpack-cli": "^3.3.10"
@@ -74,9 +75,6 @@
     "url": "https://github.com/duncte123/obs-websocket-js/issues"
   },
   "homepage": "https://github.com/duncte123/obs-websocket-js#readme",
-  "eslintConfig": {
-    "extends": "xo-space/esnext"
-  },
   "ava": {
     "files": [
       "test/*.spec.js",

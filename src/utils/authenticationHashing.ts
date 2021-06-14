@@ -1,6 +1,6 @@
-import SHA256 from 'sha.js/sha256';
+import { sha256 as SHA256 } from 'sha.js';
 
-export default function (salt = '', challenge = '', msg: string) {
+export default function(salt: string, challenge: string, msg: string): string {
   const hash = new SHA256()
     .update(msg)
     .update(salt)

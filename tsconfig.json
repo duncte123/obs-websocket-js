@@ -6,19 +6,20 @@
     ],
     "esModuleInterop": true,
     "noImplicitAny": true,
+    "declaration": true,
     "noImplicitThis": true,
     "strictNullChecks": true,
     "strictFunctionTypes": true,
-    "baseUrl": "./",
+    "rootDir": "./src",
+    "outDir": "./dist",
     "typeRoots": [
-      "./"
+      "node_modules/@types"
     ],
-    "types": [],
     "noEmit": true,
     "forceConsistentCasingInFileNames": true
   },
-  "files": [
-    "index.d.ts",
-    "tests.ts"
+  "exclude": [
+    "scripts",
+    "test"
   ]
 }
