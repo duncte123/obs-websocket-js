@@ -1,9 +1,8 @@
-import Socket from './Socket.js';
-import Status, { StatusType } from './Status.js';
+import { Socket } from './Socket.js';
+import { Status, StatusType } from './Status.js';
 import { Callback, RequestMethodReturnMap, RequestMethodsArgsMap } from './typings/obsWebsocket';
-import { IOBSWebSocket } from './IOBSWebSocket';
 
-export default class OBSWebSocket extends Socket implements IOBSWebSocket {
+export class OBSWebSocket extends Socket {
   private static requestCounter = 0;
 
   private static generateMessageId(): string {
@@ -36,7 +35,7 @@ export default class OBSWebSocket extends Socket implements IOBSWebSocket {
 
       // Assign a temporary event listener for this particular messageId to uniquely identify the response.
       this.once(`obs:internal:message:id-${messageId}`, (err, data) => {
-        if (err) {
+        if (err && Object.keys(err).length > 0) {
           this.debug('[send:reject] %o', err);
           reject(err);
         } else {

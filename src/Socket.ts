@@ -1,7 +1,7 @@
 import WebSocket from 'isomorphic-ws';
 import { EventEmitter } from 'events';
 import debug from 'debug';
-import Status, { StatusType } from './Status.js';
+import { Status, StatusType } from './Status.js';
 import hash from './utils/authenticationHashing.js';
 import logAmbiguousError from './utils/logAmbiguousError.js';
 import camelCaseKeys from './utils/camelCaseKeys.js';
@@ -14,24 +14,18 @@ export type ConnectArgs = {
   password?: string;
 };
 
-export default abstract class Socket extends EventEmitter implements IOBSWebSocket {
+export abstract class Socket extends EventEmitter implements IOBSWebSocket {
   protected connected = false;
   protected socket: WebSocket;
   protected debug = debug('obs-websocket-js:Socket');
 
-  constructor() {
-    super();
-
-    const originalEmit = this.emit;
-    // TODO: test this
-    this.emit = function (event: string | symbol, ...args): boolean {
-      this.debug('[emit] %s err: %o data: %o', ...args);
-      return originalEmit.apply(this, args);
-    };
-  }
-
   on<K extends keyof EventHandlersDataMap>(event: K, listener: (data: EventHandlersDataMap[K]) => void): this {
     return super.on(event, listener);
+  }
+
+  emit(event: string | symbol, ...args: any[]): boolean {
+    this.debug('[emit] %s err: %o data: %o', event, ...args);
+    return super.emit(event, ...args);
   }
 
   async connect(args: ConnectArgs = {}): Promise<void> {
@@ -142,8 +136,11 @@ export default abstract class Socket extends EventEmitter implements IOBSWebSock
       throw Status.NOT_CONNECTED;
     }
 
-    // TODO: where the fuck is this method defined?
+    console.log('pre auth-required');
+
     const auth = await this.send('GetAuthRequired');
+
+    console.log(auth);
 
     if (!auth.authRequired) {
       this.debug('Authentication not Required');
@@ -175,9 +172,5 @@ export default abstract class Socket extends EventEmitter implements IOBSWebSock
     }
   }
 
-  // Dummy method
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  send<K extends keyof RequestMethodsArgsMap>(requestType: K, args?: RequestMethodsArgsMap[K] extends object ? RequestMethodsArgsMap[K] : undefined): Promise<RequestMethodReturnMap[K]> {
-    throw new Error('Abstract');
-  }
+  abstract send<K extends keyof RequestMethodsArgsMap>(requestType: K, args?: RequestMethodsArgsMap[K] extends object ? RequestMethodsArgsMap[K] : undefined): Promise<RequestMethodReturnMap[K]>;
 }

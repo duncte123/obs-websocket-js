@@ -1,14 +1,14 @@
-node_modules
-bower_components
-.github
-.travis
-dist
-browser-dist
-coverage
-.nyc_output
-samples
+node_modules/
+bower_components/
+.github/
+.travis/
+dist/
+browser-dist/
+coverage/
+.nyc_output/
+samples/
 lib/API.js
-test
+test/
 src/typings/obsWebsocket.ts
 scripts/
 

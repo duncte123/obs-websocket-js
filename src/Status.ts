@@ -5,7 +5,7 @@ export type StatusType = {
   error?: string;
 };
 
-export default {
+export const Status = {
   NOT_CONNECTED: {
     code: 'NOT_CONNECTED',
     status: 'error',
