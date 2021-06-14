@@ -23,8 +23,8 @@
   "scripts": {
     "build": "npm-run-all build:*",
     "build:web": "rimraf dist && webpack",
-    "prebuild:types": "tslint -c .travis/tslint.json -p .travis/tsconfig.json",
-    "build:types": "cross-env-shell TS_NODE_PROJECT=.travis/tsconfig.json \"node $NODE_DEBUG_OPTION -r ts-node/register .travis/build-types.ts\"",
+    "prebuild:types": "tslint -c tslint.json -p tsconfig.json",
+    "build:types": "cross-env-shell TS_NODE_PROJECT=.travis/tsconfig.json \"node $NODE_DEBUG_OPTION -r ts-node/register scripts/build-types2.ts\"",
     "watch": "webpack --watch",
     "test": "npm-run-all test:*",
     "test:static": "eslint .",

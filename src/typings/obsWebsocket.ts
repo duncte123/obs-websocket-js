@@ -8,9 +8,9 @@ export type Callback<K extends keyof RequestMethodReturnMap> = (
 
 export type ObsError = {
   messageId: string;
-  status: "error";
+  status: 'error';
   error: string;
-}
+};
 
 export type SceneItem = {
   cy: number;
@@ -29,7 +29,7 @@ export type SceneItem = {
   y: number;
   parentGroupName?: string;
   groupChildren?: SceneItem[];
-}
+};
 
 export type SceneItemTransform = {
   rotation: number;
@@ -45,19 +45,19 @@ export type SceneItemTransform = {
   scale: { x: number; y: number; filter: string };
   crop: { top: number; right: number; bottom: number; left: number };
   bounds: { type: string; alignment: number; x: number; y: number };
-}
+};
 
 export type OBSStats = {
   fps: number;
-  "render-total-frames": number;
-  "render-missed-frames": number;
-  "output-total-frames": number;
-  "output-skipped-frames": number;
-  "average-frame-time": number;
-  "cpu-usage": number;
-  "memory-usage": number;
-  "free-disk-space": number;
-}
+  'render-total-frames': number;
+  'render-missed-frames': number;
+  'output-total-frames': number;
+  'output-skipped-frames': number;
+  'average-frame-time': number;
+  'cpu-usage': number;
+  'memory-usage': number;
+  'free-disk-space': number;
+};
 
 export type Output = {
   name: string;
@@ -79,16 +79,16 @@ export type Output = {
   totalFrames: number;
   droppedFrames: number;
   totalBytes: number;
-}
+};
 
 export type ScenesCollection = {
-  "sc-name": string;
-}
+  'sc-name': string;
+};
 
 export type Scene = {
   name: string;
   sources: SceneItem[];
-}
+};
 
 export type RequestMethodsArgsMap = {
   GetVersion: void;
@@ -99,7 +99,7 @@ export type RequestMethodsArgsMap = {
 
   SetHeartbeat: { enable: boolean };
 
-  SetFilenameFormatting: { "filename-formatting": string };
+  SetFilenameFormatting: { 'filename-formatting': string };
 
   GetFilenameFormatting: void;
 
@@ -130,8 +130,8 @@ export type RequestMethodsArgsMap = {
 
   ExecuteBatch: {
     requests: {
-      "request-type": string;
-      "message-id"?: string;
+      'request-type': string;
+      'message-id'?: string;
       [k: string]: any;
     }[];
     abortOnFail?: boolean;
@@ -332,7 +332,7 @@ export type RequestMethodsArgsMap = {
 
   StopOutput: { outputName: string; force?: boolean };
 
-  SetCurrentProfile: { "profile-name": string };
+  SetCurrentProfile: { 'profile-name': string };
 
   GetCurrentProfile: void;
 
@@ -350,7 +350,7 @@ export type RequestMethodsArgsMap = {
 
   ResumeRecording: void;
 
-  SetRecordingFolder: { "rec-folder": string };
+  SetRecordingFolder: { 'rec-folder': string };
 
   GetRecordingFolder: void;
 
@@ -364,7 +364,7 @@ export type RequestMethodsArgsMap = {
 
   SaveReplayBuffer: void;
 
-  SetCurrentSceneCollection: { "sc-name": string };
+  SetCurrentSceneCollection: { 'sc-name': string };
 
   GetCurrentSceneCollection: void;
 
@@ -373,12 +373,12 @@ export type RequestMethodsArgsMap = {
   GetSceneItemList: { sceneName?: string };
 
   GetSceneItemProperties: {
-    "scene-name"?: string;
+    'scene-name'?: string;
     item: { name?: string; id?: number };
   };
 
   SetSceneItemProperties: {
-    "scene-name"?: string;
+    'scene-name'?: string;
     item: { name?: string; id?: number };
     rotation?: number;
     visible?: boolean;
@@ -390,34 +390,34 @@ export type RequestMethodsArgsMap = {
   };
 
   ResetSceneItem: {
-    "scene-name"?: string;
+    'scene-name'?: string;
     item: { name?: string; id?: number };
   };
 
   SetSceneItemRender: {
-    "scene-name"?: string;
+    'scene-name'?: string;
     source?: string;
     item?: number;
     render: boolean;
   };
 
   SetSceneItemPosition: {
-    "scene-name"?: string;
+    'scene-name'?: string;
     item: string;
     x: number;
     y: number;
   };
 
   SetSceneItemTransform: {
-    "scene-name"?: string;
+    'scene-name'?: string;
     item: string;
-    "x-scale": number;
-    "y-scale": number;
+    'x-scale': number;
+    'y-scale': number;
     rotation: number;
   };
 
   SetSceneItemCrop: {
-    "scene-name"?: string;
+    'scene-name'?: string;
     item: string;
     top: number;
     bottom: number;
@@ -439,7 +439,7 @@ export type RequestMethodsArgsMap = {
     item: { name: string; id: number };
   };
 
-  SetCurrentScene: { "scene-name": string };
+  SetCurrentScene: { 'scene-name': string };
 
   GetCurrentScene: void;
 
@@ -504,10 +504,10 @@ export type RequestMethodsArgsMap = {
 
   GetPreviewScene: void;
 
-  SetPreviewScene: { "scene-name": string };
+  SetPreviewScene: { 'scene-name': string };
 
   TransitionToProgram: {
-    "with-transition"?: { name: string; duration?: number };
+    'with-transition'?: { name: string; duration?: number };
   };
 
   EnableStudioMode: void;
@@ -520,7 +520,7 @@ export type RequestMethodsArgsMap = {
 
   GetCurrentTransition: void;
 
-  SetCurrentTransition: { "transition-name": string };
+  SetCurrentTransition: { 'transition-name': string };
 
   SetTransitionDuration: { duration: number };
 
@@ -543,22 +543,22 @@ export type RequestMethodsArgsMap = {
   StartVirtualCam: void;
 
   StopVirtualCam: void;
-}
+};
 
-export type  RequestMethodReturnMap = {
+export type RequestMethodReturnMap = {
   GetVersion: {
     messageId: string;
-    status: "ok";
+    status: 'ok';
     version: number;
-    "obs-websocket-version": string;
-    "obs-studio-version": string;
-    "available-requests": string;
-    "supported-image-export-formats": string;
+    'obs-websocket-version': string;
+    'obs-studio-version': string;
+    'available-requests': string;
+    'supported-image-export-formats': string;
   };
 
   GetAuthRequired: {
     messageId: string;
-    status: "ok";
+    status: 'ok';
     authRequired: boolean;
     challenge?: string;
     salt?: string;
@@ -572,17 +572,17 @@ export type  RequestMethodReturnMap = {
 
   GetFilenameFormatting: {
     messageId: string;
-    status: "ok";
-    "filename-formatting": string;
+    status: 'ok';
+    'filename-formatting': string;
   };
 
-  GetStats: { messageId: string; status: "ok"; stats: OBSStats };
+  GetStats: { messageId: string; status: 'ok'; stats: OBSStats };
 
   BroadcastCustomMessage: void;
 
   GetVideoInfo: {
     messageId: string;
-    status: "ok";
+    status: 'ok';
     baseWidth: number;
     baseHeight: number;
     outputWidth: number;
@@ -602,9 +602,9 @@ export type  RequestMethodReturnMap = {
 
   ExecuteBatch: {
     messageId: string;
-    status: "ok";
+    status: 'ok';
     results: {
-      "message-id": string;
+      'message-id': string;
       status: string;
       error?: string;
       [k: string]: any;
@@ -625,21 +625,21 @@ export type  RequestMethodReturnMap = {
 
   GetMediaDuration: {
     messageId: string;
-    status: "ok";
+    status: 'ok';
     mediaDuration: number;
   };
 
-  GetMediaTime: { messageId: string; status: "ok"; timestamp: number };
+  GetMediaTime: { messageId: string; status: 'ok'; timestamp: number };
 
   SetMediaTime: void;
 
   ScrubMedia: void;
 
-  GetMediaState: { messageId: string; status: "ok"; mediaState: string };
+  GetMediaState: { messageId: string; status: 'ok'; mediaState: string };
 
   GetMediaSourcesList: {
     messageId: string;
-    status: "ok";
+    status: 'ok';
     mediaSources: {
       sourceName: string;
       sourceKind: string;
@@ -647,17 +647,17 @@ export type  RequestMethodReturnMap = {
     }[];
   };
 
-  CreateSource: { messageId: string; status: "ok"; itemId: number };
+  CreateSource: { messageId: string; status: 'ok'; itemId: number };
 
   GetSourcesList: {
     messageId: string;
-    status: "ok";
+    status: 'ok';
     sources: { name: string; typeId: string; type: string }[];
   };
 
   GetSourceTypesList: {
     messageId: string;
-    status: "ok";
+    status: 'ok';
     types: {
       typeId: string;
       displayName: string;
@@ -677,7 +677,7 @@ export type  RequestMethodReturnMap = {
 
   GetVolume: {
     messageId: string;
-    status: "ok";
+    status: 'ok';
     name: string;
     volume: number;
     muted: boolean;
@@ -689,7 +689,7 @@ export type  RequestMethodReturnMap = {
 
   GetTracks: {
     messageId: string;
-    status: "ok";
+    status: 'ok';
     track1: boolean;
     track2: boolean;
     track3: boolean;
@@ -698,15 +698,15 @@ export type  RequestMethodReturnMap = {
     track6: boolean;
   };
 
-  GetMute: { messageId: string; status: "ok"; name: string; muted: boolean };
+  GetMute: { messageId: string; status: 'ok'; name: string; muted: boolean };
 
   SetMute: void;
 
   ToggleMute: void;
 
-  GetSourceActive: { messageId: string; status: "ok"; sourceActive: boolean };
+  GetSourceActive: { messageId: string; status: 'ok'; sourceActive: boolean };
 
-  GetAudioActive: { messageId: string; status: "ok"; audioActive: boolean };
+  GetAudioActive: { messageId: string; status: 'ok'; audioActive: boolean };
 
   SetSourceName: void;
 
@@ -714,14 +714,14 @@ export type  RequestMethodReturnMap = {
 
   GetSyncOffset: {
     messageId: string;
-    status: "ok";
+    status: 'ok';
     name: string;
     offset: number;
   };
 
   GetSourceSettings: {
     messageId: string;
-    status: "ok";
+    status: 'ok';
     sourceName: string;
     sourceType: string;
     sourceSettings: {};
@@ -729,7 +729,7 @@ export type  RequestMethodReturnMap = {
 
   SetSourceSettings: {
     messageId: string;
-    status: "ok";
+    status: 'ok';
     sourceName: string;
     sourceType: string;
     sourceSettings: {};
@@ -737,7 +737,7 @@ export type  RequestMethodReturnMap = {
 
   GetTextGDIPlusProperties: {
     messageId: string;
-    status: "ok";
+    status: 'ok';
     source: string;
     align: string;
     bk_color: number;
@@ -768,7 +768,7 @@ export type  RequestMethodReturnMap = {
 
   GetTextFreetype2Properties: {
     messageId: string;
-    status: "ok";
+    status: 'ok';
     source: string;
     color1: number;
     color2: number;
@@ -787,7 +787,7 @@ export type  RequestMethodReturnMap = {
 
   GetBrowserSourceProperties: {
     messageId: string;
-    status: "ok";
+    status: 'ok';
     source: string;
     is_local_file: boolean;
     local_file: string;
@@ -803,23 +803,23 @@ export type  RequestMethodReturnMap = {
 
   GetSpecialSources: {
     messageId: string;
-    status: "ok";
-    "desktop-1"?: string;
-    "desktop-2"?: string;
-    "mic-1"?: string;
-    "mic-2"?: string;
-    "mic-3"?: string;
+    status: 'ok';
+    'desktop-1'?: string;
+    'desktop-2'?: string;
+    'mic-1'?: string;
+    'mic-2'?: string;
+    'mic-3'?: string;
   };
 
   GetSourceFilters: {
     messageId: string;
-    status: "ok";
+    status: 'ok';
     filters: { enabled: boolean; type: string; name: string; settings: {} }[];
   };
 
   GetSourceFilterInfo: {
     messageId: string;
-    status: "ok";
+    status: 'ok';
     enabled: boolean;
     type: string;
     name: string;
@@ -840,7 +840,7 @@ export type  RequestMethodReturnMap = {
 
   GetAudioMonitorType: {
     messageId: string;
-    status: "ok";
+    status: 'ok';
     monitorType: string;
   };
 
@@ -848,14 +848,14 @@ export type  RequestMethodReturnMap = {
 
   GetSourceDefaultSettings: {
     messageId: string;
-    status: "ok";
+    status: 'ok';
     sourceKind: string;
     defaultSettings: {};
   };
 
   TakeSourceScreenshot: {
     messageId: string;
-    status: "ok";
+    status: 'ok';
     sourceName: string;
     img: string;
     imageFile: string;
@@ -865,13 +865,13 @@ export type  RequestMethodReturnMap = {
 
   ListOutputs: {
     messageId: string;
-    status: "ok";
+    status: 'ok';
     outputs: Output[];
   };
 
   GetOutputInfo: {
     messageId: string;
-    status: "ok";
+    status: 'ok';
     outputInfo: Output;
   };
 
@@ -883,19 +883,19 @@ export type  RequestMethodReturnMap = {
 
   GetCurrentProfile: {
     messageId: string;
-    status: "ok";
-    "profile-name": string;
+    status: 'ok';
+    'profile-name': string;
   };
 
   ListProfiles: {
     messageId: string;
-    status: "ok";
-    profiles: { "profile-name": string }[];
+    status: 'ok';
+    profiles: { 'profile-name': string }[];
   };
 
   GetRecordingStatus: {
     messageId: string;
-    status: "ok";
+    status: 'ok';
     isRecording: boolean;
     isRecordingPaused: boolean;
     recordTimecode?: string;
@@ -916,13 +916,13 @@ export type  RequestMethodReturnMap = {
 
   GetRecordingFolder: {
     messageId: string;
-    status: "ok";
-    "rec-folder": string;
+    status: 'ok';
+    'rec-folder': string;
   };
 
   GetReplayBufferStatus: {
     messageId: string;
-    status: "ok";
+    status: 'ok';
     isReplayBufferActive: boolean;
   };
 
@@ -938,19 +938,19 @@ export type  RequestMethodReturnMap = {
 
   GetCurrentSceneCollection: {
     messageId: string;
-    status: "ok";
-    "sc-name": string;
+    status: 'ok';
+    'sc-name': string;
   };
 
   ListSceneCollections: {
     messageId: string;
-    status: "ok";
-    "scene-collections": ScenesCollection[];
+    status: 'ok';
+    'scene-collections': ScenesCollection[];
   };
 
   GetSceneItemList: {
     messageId: string;
-    status: "ok";
+    status: 'ok';
     sceneName: string;
     sceneItems: {
       itemId: number;
@@ -962,7 +962,7 @@ export type  RequestMethodReturnMap = {
 
   GetSceneItemProperties: {
     messageId: string;
-    status: "ok";
+    status: 'ok';
     name: string;
     itemId: number;
     rotation: number;
@@ -995,11 +995,11 @@ export type  RequestMethodReturnMap = {
 
   DeleteSceneItem: void;
 
-  AddSceneItem: { messageId: string; status: "ok"; itemId: number };
+  AddSceneItem: { messageId: string; status: 'ok'; itemId: number };
 
   DuplicateSceneItem: {
     messageId: string;
-    status: "ok";
+    status: 'ok';
     scene: string;
     item: { id: number; name: string };
   };
@@ -1008,15 +1008,15 @@ export type  RequestMethodReturnMap = {
 
   GetCurrentScene: {
     messageId: string;
-    status: "ok";
+    status: 'ok';
     name: string;
     sources: SceneItem[];
   };
 
   GetSceneList: {
     messageId: string;
-    status: "ok";
-    "current-scene": string;
+    status: 'ok';
+    'current-scene': string;
     scenes: Scene[];
   };
 
@@ -1030,22 +1030,22 @@ export type  RequestMethodReturnMap = {
 
   GetSceneTransitionOverride: {
     messageId: string;
-    status: "ok";
+    status: 'ok';
     transitionName: string;
     transitionDuration: number;
   };
 
   GetStreamingStatus: {
     messageId: string;
-    status: "ok";
+    status: 'ok';
     streaming: boolean;
     recording: boolean;
-    "recording-paused": boolean;
+    'recording-paused': boolean;
     virtualcam: boolean;
-    "preview-only": boolean;
-    "stream-timecode"?: string;
-    "rec-timecode"?: string;
-    "virtualcam-timecode"?: string;
+    'preview-only': boolean;
+    'stream-timecode'?: string;
+    'rec-timecode'?: string;
+    'virtualcam-timecode'?: string;
   };
 
   StartStopStreaming: void;
@@ -1058,7 +1058,7 @@ export type  RequestMethodReturnMap = {
 
   GetStreamSettings: {
     messageId: string;
-    status: "ok";
+    status: 'ok';
     type: string;
     settings: {
       server: string;
@@ -1075,13 +1075,13 @@ export type  RequestMethodReturnMap = {
 
   GetStudioModeStatus: {
     messageId: string;
-    status: "ok";
-    "studio-mode": boolean;
+    status: 'ok';
+    'studio-mode': boolean;
   };
 
   GetPreviewScene: {
     messageId: string;
-    status: "ok";
+    status: 'ok';
     name: string;
     sources: SceneItem[];
   };
@@ -1098,14 +1098,14 @@ export type  RequestMethodReturnMap = {
 
   GetTransitionList: {
     messageId: string;
-    status: "ok";
-    "current-transition": string;
+    status: 'ok';
+    'current-transition': string;
     transitions: { name: string }[];
   };
 
   GetCurrentTransition: {
     messageId: string;
-    status: "ok";
+    status: 'ok';
     name: string;
     duration?: number;
   };
@@ -1116,25 +1116,25 @@ export type  RequestMethodReturnMap = {
 
   GetTransitionDuration: {
     messageId: string;
-    status: "ok";
-    "transition-duration": number;
+    status: 'ok';
+    'transition-duration': number;
   };
 
   GetTransitionPosition: {
     messageId: string;
-    status: "ok";
+    status: 'ok';
     position: number;
   };
 
   GetTransitionSettings: {
     messageId: string;
-    status: "ok";
+    status: 'ok';
     transitionSettings: {};
   };
 
   SetTransitionSettings: {
     messageId: string;
-    status: "ok";
+    status: 'ok';
     transitionSettings: {};
   };
 
@@ -1144,7 +1144,7 @@ export type  RequestMethodReturnMap = {
 
   GetVirtualCamStatus: {
     messageId: string;
-    status: "ok";
+    status: 'ok';
     isVirtualCam: boolean;
     virtualCamTimecode?: string;
   };
@@ -1154,7 +1154,7 @@ export type  RequestMethodReturnMap = {
   StartVirtualCam: void;
 
   StopVirtualCam: void;
-}
+};
 
 export type EventHandlersDataMap = {
   ConnectionOpened: void;
@@ -1168,7 +1168,7 @@ export type EventHandlersDataMap = {
     // This would require importing all of the WebSocket types so leaving out for now.
     // target: WebSocket;
   };
-  SwitchScenes: { "scene-name": string; sources: SceneItem[] };
+  SwitchScenes: { 'scene-name': string; sources: SceneItem[] };
 
   ScenesChanged: { scenes: Scene[] };
 
@@ -1176,67 +1176,67 @@ export type EventHandlersDataMap = {
 
   SceneCollectionListChanged: { sceneCollections: { name: string }[] };
 
-  SwitchTransition: { "transition-name": string };
+  SwitchTransition: { 'transition-name': string };
 
   TransitionListChanged: { transitions: { name: string }[] };
 
-  TransitionDurationChanged: { "new-duration": number };
+  TransitionDurationChanged: { 'new-duration': number };
 
   TransitionBegin: {
     name: string;
     type: string;
     duration: number;
-    "from-scene"?: string;
-    "to-scene": string;
+    'from-scene'?: string;
+    'to-scene': string;
   };
 
   TransitionEnd: {
     name: string;
     type: string;
     duration: number;
-    "to-scene": string;
+    'to-scene': string;
   };
 
   TransitionVideoEnd: {
     name: string;
     type: string;
     duration: number;
-    "from-scene"?: string;
-    "to-scene": string;
+    'from-scene'?: string;
+    'to-scene': string;
   };
 
   ProfileChanged: { profile: string };
 
   ProfileListChanged: { profiles: { name: string }[] };
 
-  StreamStarting: { "preview-only": boolean };
+  StreamStarting: { 'preview-only': boolean };
 
   StreamStarted: void;
 
-  StreamStopping: { "preview-only": boolean };
+  StreamStopping: { 'preview-only': boolean };
 
   StreamStopped: void;
 
   StreamStatus: {
     streaming: boolean;
     recording: boolean;
-    "replay-buffer-active": boolean;
-    "bytes-per-sec": number;
-    "kbits-per-sec": number;
+    'replay-buffer-active': boolean;
+    'bytes-per-sec': number;
+    'kbits-per-sec': number;
     strain: number;
-    "total-stream-time": number;
-    "num-total-frames": number;
-    "num-dropped-frames": number;
+    'total-stream-time': number;
+    'num-total-frames': number;
+    'num-dropped-frames': number;
     fps: number;
-    "render-total-frames": number;
-    "render-missed-frames": number;
-    "output-total-frames": number;
-    "output-skipped-frames": number;
-    "average-frame-time": number;
-    "cpu-usage": number;
-    "memory-usage": number;
-    "free-disk-space": number;
-    "preview-only": boolean;
+    'render-total-frames': number;
+    'render-missed-frames': number;
+    'output-total-frames': number;
+    'output-skipped-frames': number;
+    'average-frame-time': number;
+    'cpu-usage': number;
+    'memory-usage': number;
+    'free-disk-space': number;
+    'preview-only': boolean;
   };
 
   RecordingStarting: void;
@@ -1267,16 +1267,16 @@ export type EventHandlersDataMap = {
 
   Heartbeat: {
     pulse: boolean;
-    "current-profile"?: string;
-    "current-scene"?: string;
+    'current-profile'?: string;
+    'current-scene'?: string;
     streaming?: boolean;
-    "total-stream-time"?: number;
-    "total-stream-bytes"?: number;
-    "total-stream-frames"?: number;
+    'total-stream-time'?: number;
+    'total-stream-bytes'?: number;
+    'total-stream-frames'?: number;
     recording?: boolean;
-    "total-record-time"?: number;
-    "total-record-bytes"?: number;
-    "total-record-frames"?: number;
+    'total-record-time'?: number;
+    'total-record-bytes'?: number;
+    'total-record-frames'?: number;
     stats: OBSStats;
   };
 
@@ -1362,59 +1362,59 @@ export type EventHandlersDataMap = {
   MediaEnded: { sourceName: string; sourceKind: string };
 
   SourceOrderChanged: {
-    "scene-name": string;
-    "scene-items": { "source-name": string; "item-id": number }[];
+    'scene-name': string;
+    'scene-items': { 'source-name': string; 'item-id': number }[];
   };
 
   SceneItemAdded: {
-    "scene-name": string;
-    "item-name": string;
-    "item-id": number;
+    'scene-name': string;
+    'item-name': string;
+    'item-id': number;
   };
 
   SceneItemRemoved: {
-    "scene-name": string;
-    "item-name": string;
-    "item-id": number;
+    'scene-name': string;
+    'item-name': string;
+    'item-id': number;
   };
 
   SceneItemVisibilityChanged: {
-    "scene-name": string;
-    "item-name": string;
-    "item-id": number;
-    "item-visible": boolean;
+    'scene-name': string;
+    'item-name': string;
+    'item-id': number;
+    'item-visible': boolean;
   };
 
   SceneItemLockChanged: {
-    "scene-name": string;
-    "item-name": string;
-    "item-id": number;
-    "item-locked": boolean;
+    'scene-name': string;
+    'item-name': string;
+    'item-id': number;
+    'item-locked': boolean;
   };
 
   SceneItemTransformChanged: {
-    "scene-name": string;
-    "item-name": string;
-    "item-id": number;
+    'scene-name': string;
+    'item-name': string;
+    'item-id': number;
     transform: SceneItemTransform;
   };
 
   SceneItemSelected: {
-    "scene-name": string;
-    "item-name": string;
-    "item-id": number;
+    'scene-name': string;
+    'item-name': string;
+    'item-id': number;
   };
 
   SceneItemDeselected: {
-    "scene-name": string;
-    "item-name": string;
-    "item-id": number;
+    'scene-name': string;
+    'item-name': string;
+    'item-id': number;
   };
 
   PreviewSceneChanged: {
-    "scene-name": string;
+    'scene-name': string;
     sources: SceneItem[];
   };
 
-  StudioModeSwitched: { "new-state": boolean };
-}
+  StudioModeSwitched: { 'new-state': boolean };
+};
