@@ -169,7 +169,7 @@ function parseApi(raw: RawComments): void {
   const sourceCode = `// This file is generated, do not edit.
 // TypeScript Version: 3.1
 /// <reference types="node" />
-declare module 'obs-websocket-js' {
+declare module '@duncte123/obs-websocket-js' {
   import { EventEmitter } from 'events';
 
   namespace ObsWebSocket {
