@@ -1,6 +1,6 @@
 {
   "name": "@duncte123/obs-websocket-js",
-  "version": "4.0.4",
+  "version": "4.0.5",
   "description": "Fork of obs ws v4 so I can create a bridge to v5",
   "author": "Brendan Hagan (haganbmj)",
   "license": "MIT",
