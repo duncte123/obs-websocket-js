@@ -97,12 +97,7 @@ async function getLatestComments(): Promise<any> {
     delete headers.Authorization;
   }
 
-  const latestReleaseResponse = await got('https://api.github.com/repos/Palakis/obs-websocket/releases/latest', {
-    json: true,
-    headers
-  });
-  const latestReleaseTag = latestReleaseResponse.body.tag_name;
-  const commentsResponse = await got(`https://raw.githubusercontent.com/Palakis/obs-websocket/${latestReleaseTag}/docs/generated/comments.json`, {
+  const commentsResponse = await got('https://raw.githubusercontent.com/Palakis/obs-websocket/4.x-compat/docs/generated/comments.json', {
     json: true,
     headers
   });
